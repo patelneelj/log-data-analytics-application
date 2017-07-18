@@ -1,0 +1,11 @@
+c:\users\owner\documents\visual studio 2015\Projects\CompressFolderProject\CompressFolderProject\bin\Debug\CompressFolderProject.exe.config
+c:\users\owner\documents\visual studio 2015\Projects\CompressFolderProject\CompressFolderProject\bin\Debug\CompressFolderProject.exe
+c:\users\owner\documents\visual studio 2015\Projects\CompressFolderProject\CompressFolderProject\bin\Debug\CompressFolderProject.pdb
+c:\users\owner\documents\visual studio 2015\Projects\CompressFolderProject\CompressFolderProject\bin\Debug\CompressFolderProject.xml
+c:\users\owner\documents\visual studio 2015\Projects\CompressFolderProject\CompressFolderProject\obj\Debug\CompressFolderProject.Form1.resources
+c:\users\owner\documents\visual studio 2015\Projects\CompressFolderProject\CompressFolderProject\obj\Debug\CompressFolderProject.Resources.resources
+c:\users\owner\documents\visual studio 2015\Projects\CompressFolderProject\CompressFolderProject\obj\Debug\CompressFolderProject.vbproj.GenerateResource.Cache
+c:\users\owner\documents\visual studio 2015\Projects\CompressFolderProject\CompressFolderProject\obj\Debug\CompressFolderProject.exe
+c:\users\owner\documents\visual studio 2015\Projects\CompressFolderProject\CompressFolderProject\obj\Debug\CompressFolderProject.xml
+c:\users\owner\documents\visual studio 2015\Projects\CompressFolderProject\CompressFolderProject\obj\Debug\CompressFolderProject.pdb
+C:\Users\Owner\Documents\Visual Studio 2015\Projects\CompressFolderProject\CompressFolderProject\obj\Debug\CompressFolderProject.vbprojResolveAssemblyReference.cache
