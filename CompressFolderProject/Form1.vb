@@ -9,6 +9,9 @@ Public Class Form1
     Dim Destinydirectory As String
     Dim exePath As String = My.Computer.FileSystem.SpecialDirectories.Temp & "/7zFile/7z.exe"
     Dim timeList As List(Of TimeSpan) = New List(Of TimeSpan)
+    Dim dictOS As Dictionary(Of String, Integer) = New Dictionary(Of String, Integer)
+    Dim dictLogVersion As Dictionary(Of String, Integer) = New Dictionary(Of String, Integer)
+    Dim countOfOS As Integer, countOflogVersion As Integer = 0
     Function extract7z(zipFileFolder As String, ToFolder As String)
         Dim args As String = "e " + zipFileFolder + " -o" + ToFolder + "" + " -p""cyberspa123"""
         System.Diagnostics.Process.Start(exePath, args)
@@ -70,6 +73,26 @@ Public Class Form1
         timeList.Sort(New Comparison(Of TimeSpan)(Function(x As TimeSpan, y As TimeSpan) x.CompareTo(y)))
         TextBox8.Text = timeList.ElementAt(0).ToString
         TextBox9.Text = timeList.ElementAt(timeList.Count - 1).ToString
+    End Function
+    Function addtoMapCountOfOS(ByVal oldDriveToNewDrive As String)
+        If (dictOS.TryGetValue(oldDriveToNewDrive, countOfOS)) Then
+
+            dictOS(oldDriveToNewDrive) += 1
+        Else
+            dictOS.Add(oldDriveToNewDrive, 1)
+
+        End If
+        Return dictOS
+    End Function
+    Function addtoMapCountOfVersion(ByVal versionString As String)
+        If (dictLogVersion.TryGetValue(versionString, countOflogVersion)) Then
+
+            dictLogVersion(versionString) += 1
+        Else
+            dictLogVersion.Add(versionString, 1)
+
+        End If
+        Return dictLogVersion
     End Function
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -259,11 +282,10 @@ Public Class Form1
     End Sub
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        dictOS.Clear()
         Dim filesOSdetails() As System.IO.FileInfo
         Dim dirInfo As New System.IO.DirectoryInfo("C:\Users\Owner\Desktop\ErrorLog")
-        Dim zipinsideFolderDir, oldDriveString, newDriveString As String
-        Dim win7HP64Win7HP64, win7HP64Win7Pro64, win7HP64Win7Ult64, win7HP64Win8Std64, win7HP64Win8Pro64,
-            win7HP64Win10H64, win7HP64Win10Pro64 As Integer
+        Dim zipinsideFolderDir As String = Nothing, oldDriveString As String = Nothing, newDriveString As String = Nothing
         filesOSdetails = dirInfo.GetFiles("frm2Errorlog.txt", IO.SearchOption.AllDirectories)
         For Each file In filesOSdetails
             zipinsideFolderDir = file.DirectoryName + "\" + file.ToString
@@ -271,38 +293,62 @@ Public Class Form1
             While objreader.Peek <> -1
                 Dim StrFiles As String = objreader.ReadLine()
                 If (StrFiles.Contains("Old drive is:")) Then
-                    oldDriveString = StrFiles.Substring(18)
+                    Dim words As String() = StrFiles.Split(New Char() {","c})
+                    oldDriveString = words(1) & words(2)
                     StrFiles = String.Empty
                 End If
                 If (StrFiles.Contains("New drive is:")) Then
-                    newDriveString = StrFiles.Substring(14)
+                    Dim words As String() = StrFiles.Split(New Char() {":"c})
+                    newDriveString = words(1)
                     StrFiles = String.Empty
                 End If
-                If (oldDriveString.Contains("Windows 7 Home Premium ,64bit") AndAlso
-                    newDriveString.Contains("Windows 7 Home Premium ,64bit")) Then
-                    win7HP64Win7HP64 = win7HP64Win7HP64 + 1
-                ElseIf (oldDriveString.Contains("Windows 7 Home Premium ,64bit") AndAlso
-                    newDriveString.Contains("Windows 7 Professional  ,64bit")) Then
-                    win7HP64Win7Pro64 = win7HP64Win7Pro64 + 1
-                ElseIf (oldDriveString.Contains("Windows 7 Home Premium ,64bit") AndAlso
-                    newDriveString.Contains("Windows 7 Ultimate  ,64bit")) Then
-                    win7HP64Win7Ult64 = win7HP64Win7Ult64 + 1
-                ElseIf (oldDriveString.Contains("Windows 7 Home Premium ,64bit") AndAlso
-                    newDriveString.Contains("Windows 8 Standard  ,64bit")) Then
-                    win7HP64Win8Std64 = win7HP64Win8Std64 + 1
-                ElseIf (oldDriveString.Contains("Windows 7 Home Premium ,64bit") AndAlso
-                    newDriveString.Contains("Windows 8 Professional  ,64bit")) Then
-                    win7HP64Win8Pro64 = win7HP64Win8Pro64 + 1
-                ElseIf (oldDriveString.Contains("Windows 7 Home Premium ,64bit") AndAlso
-                    newDriveString.Contains("Windows 10 Home ,64bit")) Then
-                    win7HP64Win10H64 = win7HP64Win10H64 + 1
-                ElseIf (oldDriveString.Contains("Windows 7 Home Premium ,64bit") AndAlso
-                    newDriveString.Contains("Windows 10 Professional ,64bit")) Then
-                    win7HP64Win10Pro64 = win7HP64Win10Pro64 + 1
+                If Not (String.IsNullOrEmpty(oldDriveString) Or String.IsNullOrEmpty(newDriveString)) Then
+                    Dim mergeString As String = oldDriveString & " to " & newDriveString
+                    dictOS = addtoMapCountOfOS(mergeString)
+                    oldDriveString = Nothing
+                    newDriveString = Nothing
                 End If
 
             End While
             objreader.Close()
         Next
+        Dim sortedDict = (From entry In dictOS Order By entry.Value Descending Select entry)
+        Dim message As String = ""
+        Dim pair As KeyValuePair(Of String, Integer)
+        For Each pair In sortedDict
+            'Console.WriteLine("{0}, {1}", pair.Key, pair.Value)
+            message += pair.Key & ":  " & pair.Value & Environment.NewLine
+        Next
+        MessageBox.Show(message)
+    End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        Dim fileslogVersiondetails() As System.IO.FileInfo
+        Dim dirInfo As New System.IO.DirectoryInfo("C:\Users\Owner\Desktop\ErrorLog")
+        Dim zipinsideFolderDir As String = Nothing, VersionString As String = Nothing
+        Dim CountVersion As Integer = 0
+        fileslogVersiondetails = dirInfo.GetFiles("frm2Errorlog.txt", IO.SearchOption.AllDirectories)
+        For Each file In fileslogVersiondetails
+            zipinsideFolderDir = file.DirectoryName + "\" + file.ToString
+            Dim objreader As New System.IO.StreamReader(zipinsideFolderDir)
+            While objreader.Peek <> -1
+                Dim StrFiles As String = objreader.ReadLine()
+                If (StrFiles.Contains("FreshStart app version:")) Then
+                    Dim words As String() = StrFiles.Split(New Char() {":"c})
+                    VersionString = words(1)
+                    dictLogVersion = addtoMapCountOfVersion(VersionString)
+                    StrFiles = String.Empty
+                End If
+            End While
+            objreader.Close()
+        Next
+        Dim sortedDict = (From entry In dictLogVersion Order By entry.Value Descending Select entry)
+        Dim message As String = ""
+        Dim pair As KeyValuePair(Of String, Integer)
+        For Each pair In sortedDict
+            'Console.WriteLine("{0}, {1}", pair.Key, pair.Value)
+            message += pair.Key & ":  " & pair.Value & Environment.NewLine
+        Next
+        MessageBox.Show(message)
     End Sub
 End Class
