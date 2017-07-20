@@ -10,8 +10,10 @@ Public Class Form1
     Dim exePath As String = My.Computer.FileSystem.SpecialDirectories.Temp & "/7zFile/7z.exe"
     Dim timeList As List(Of TimeSpan) = New List(Of TimeSpan)
     Dim dictOS As Dictionary(Of String, Integer) = New Dictionary(Of String, Integer)
+    Dim dictNewOSdetails As Dictionary(Of String, Integer) = New Dictionary(Of String, Integer)
     Dim dictLogVersion As Dictionary(Of String, Integer) = New Dictionary(Of String, Integer)
-    Dim countOfOS As Integer, countOflogVersion As Integer = 0
+    Dim dictTopProg As Dictionary(Of String, Integer) = New Dictionary(Of String, Integer)
+    Dim countOfOS As Integer, countOflogVersion As Integer = 0, countOfNewOS As Integer = 0, countOfTopProg As Integer = 0
     Function extract7z(zipFileFolder As String, ToFolder As String)
         Dim args As String = "e " + zipFileFolder + " -o" + ToFolder + "" + " -p""cyberspa123"""
         System.Diagnostics.Process.Start(exePath, args)
@@ -94,7 +96,26 @@ Public Class Form1
         End If
         Return dictLogVersion
     End Function
+    Function addtoMapCountOfNewOS(ByVal countOfewOS As String)
+        If (dictNewOSdetails.TryGetValue(countOfewOS, countOfNewOS)) Then
 
+            dictNewOSdetails(countOfewOS) += 1
+        Else
+            dictNewOSdetails.Add(countOfewOS, 1)
+
+        End If
+        Return dictNewOSdetails
+    End Function
+    Function addtoMapCountTopProg(ByVal topProgSName As String)
+        If (dictTopProg.TryGetValue(topProgSName, countOfTopProg)) Then
+
+            dictTopProg(topProgSName) += 1
+        Else
+            dictTopProg.Add(topProgSName, 1)
+
+        End If
+        Return dictTopProg
+    End Function
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             ZipFile.CreateFromDirectory(TextBox1.Text, TextBox2.Text)
@@ -108,13 +129,11 @@ Public Class Form1
         Try
             Threading.Thread.Sleep(500)
             System.IO.Directory.Delete(My.Computer.FileSystem.SpecialDirectories.Temp & "/7zFile", True)
-            System.IO.Directory.Delete(My.Computer.FileSystem.SpecialDirectories.Temp & "\ProgList.jar", True)
+            System.IO.File.Delete(My.Computer.FileSystem.SpecialDirectories.Temp & "/ProgList.jar")
             End
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
-
-
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
@@ -249,7 +268,8 @@ Public Class Form1
                     avgSize = avgSize + AvgsizeOfDisk
                 End If
             Next
-            TextBox3.Text = "Average Size of disk is: " & Format((avgSize / counterSizeFile), "0.00")
+            TextBox10.Text = Format((avgSize), "0.00") & "GB"
+            TextBox3.Text = Format((avgSize / counterSizeFile), "0.00") & "GB"
             For Each row1 As DataGridViewRow In DataGridView2.Rows
                 If Not row1.IsNewRow Then
                     Dim avgProg1 As Integer = row1.Cells(0).Value.ToString()
@@ -273,7 +293,39 @@ Public Class Form1
     End Sub
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         Try
-            System.Diagnostics.Process.Start(My.Computer.FileSystem.SpecialDirectories.Temp & "\ProgList.jar")
+            '  System.Diagnostics.Process.Start(My.Computer.FileSystem.SpecialDirectories.Temp & "\ProgList.jar")
+            dictTopProg.Clear()
+            Dim filesOSdetails() As System.IO.FileInfo
+            Dim dirInfo As New System.IO.DirectoryInfo("C:\Users\Owner\Desktop\ErrorLog")
+            Dim zipinsideFolderDir As String = Nothing
+            filesOSdetails = dirInfo.GetFiles("olddriveinstalledPrograms.txt", IO.SearchOption.AllDirectories)
+            For Each file In filesOSdetails
+                zipinsideFolderDir = file.DirectoryName + "\" + file.ToString
+                Dim objreader As New System.IO.StreamReader(zipinsideFolderDir)
+                While objreader.Peek <> -1
+                    Dim StrFiles As String = objreader.ReadLine()
+                    ' StrFiles = String.Empty
+
+                    If Not (String.IsNullOrEmpty(StrFiles) Or StrFiles = " ") Then
+
+                        dictTopProg = addtoMapCountTopProg(StrFiles)
+                        StrFiles = Nothing
+                    End If
+
+                End While
+                objreader.Close()
+            Next
+            Dim sortedDict = (From entry In dictTopProg Order By entry.Value Descending Select entry).Take(10)
+            Dim message As String = ""
+            Dim pair As KeyValuePair(Of String, Integer)
+
+            For Each pair In sortedDict
+                'Console.WriteLine("{0}, {1}", pair.Key, pair.Value)
+                '  If (pair.Value <= 3) Then
+                message += pair.Key & ":  " & pair.Value & Environment.NewLine
+                ' End If
+            Next
+            MessageBox.Show(message)
 
         Catch ex As Exception
             MessageBox.Show(ex.Message.ToString)
@@ -313,6 +365,40 @@ Public Class Form1
             objreader.Close()
         Next
         Dim sortedDict = (From entry In dictOS Order By entry.Value Descending Select entry)
+        Dim message As String = ""
+        Dim pair As KeyValuePair(Of String, Integer)
+        For Each pair In sortedDict
+            'Console.WriteLine("{0}, {1}", pair.Key, pair.Value)
+            message += pair.Key & ":  " & pair.Value & Environment.NewLine
+        Next
+        MessageBox.Show(message)
+    End Sub
+
+    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        dictNewOSdetails.Clear()
+        Dim filesOSdetails() As System.IO.FileInfo
+        Dim dirInfo As New System.IO.DirectoryInfo("C:\Users\Owner\Desktop\ErrorLog")
+        Dim zipinsideFolderDir As String = Nothing, newDriveString As String = Nothing
+        filesOSdetails = dirInfo.GetFiles("frm2Errorlog.txt", IO.SearchOption.AllDirectories)
+        For Each file In filesOSdetails
+            zipinsideFolderDir = file.DirectoryName + "\" + file.ToString
+            Dim objreader As New System.IO.StreamReader(zipinsideFolderDir)
+            While objreader.Peek <> -1
+                Dim StrFiles As String = objreader.ReadLine()
+                If (StrFiles.Contains("New drive is:")) Then
+                    Dim words As String() = StrFiles.Split(New Char() {":"c})
+                    newDriveString = words(1)
+                    StrFiles = String.Empty
+                End If
+                If Not (String.IsNullOrEmpty(newDriveString)) Then
+
+                    dictNewOSdetails = addtoMapCountOfNewOS(newDriveString)
+                    newDriveString = Nothing
+                End If
+            End While
+            objreader.Close()
+        Next
+        Dim sortedDict = (From entry In dictNewOSdetails Order By entry.Value Descending Select entry)
         Dim message As String = ""
         Dim pair As KeyValuePair(Of String, Integer)
         For Each pair In sortedDict

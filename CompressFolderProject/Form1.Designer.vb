@@ -55,6 +55,11 @@ Partial Class Form1
         Me.TextBox9 = New System.Windows.Forms.TextBox()
         Me.Button7 = New System.Windows.Forms.Button()
         Me.Button8 = New System.Windows.Forms.Button()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.TextBox10 = New System.Windows.Forms.TextBox()
+        Me.Button9 = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -189,9 +194,9 @@ Partial Class Form1
         '
         'TextBox3
         '
-        Me.TextBox3.Location = New System.Drawing.Point(124, 446)
+        Me.TextBox3.Location = New System.Drawing.Point(243, 450)
         Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(239, 20)
+        Me.TextBox3.Size = New System.Drawing.Size(120, 20)
         Me.TextBox3.TabIndex = 14
         '
         'TextBox5
@@ -217,7 +222,7 @@ Partial Class Form1
         '
         'Button6
         '
-        Me.Button6.Location = New System.Drawing.Point(12, 251)
+        Me.Button6.Location = New System.Drawing.Point(12, 236)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(86, 44)
         Me.Button6.TabIndex = 18
@@ -242,7 +247,7 @@ Partial Class Form1
         '
         'TextBox7
         '
-        Me.TextBox7.Location = New System.Drawing.Point(698, 228)
+        Me.TextBox7.Location = New System.Drawing.Point(663, 219)
         Me.TextBox7.Name = "TextBox7"
         Me.TextBox7.Size = New System.Drawing.Size(85, 20)
         Me.TextBox7.TabIndex = 21
@@ -250,7 +255,7 @@ Partial Class Form1
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(610, 235)
+        Me.Label6.Location = New System.Drawing.Point(584, 219)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(73, 13)
         Me.Label6.TabIndex = 22
@@ -259,7 +264,7 @@ Partial Class Form1
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(609, 282)
+        Me.Label7.Location = New System.Drawing.Point(583, 244)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(74, 13)
         Me.Label7.TabIndex = 23
@@ -268,7 +273,7 @@ Partial Class Form1
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(609, 330)
+        Me.Label8.Location = New System.Drawing.Point(584, 267)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(77, 13)
         Me.Label8.TabIndex = 24
@@ -276,21 +281,21 @@ Partial Class Form1
         '
         'TextBox8
         '
-        Me.TextBox8.Location = New System.Drawing.Point(698, 282)
+        Me.TextBox8.Location = New System.Drawing.Point(663, 241)
         Me.TextBox8.Name = "TextBox8"
         Me.TextBox8.Size = New System.Drawing.Size(85, 20)
         Me.TextBox8.TabIndex = 25
         '
         'TextBox9
         '
-        Me.TextBox9.Location = New System.Drawing.Point(698, 327)
+        Me.TextBox9.Location = New System.Drawing.Point(663, 264)
         Me.TextBox9.Name = "TextBox9"
         Me.TextBox9.Size = New System.Drawing.Size(85, 20)
         Me.TextBox9.TabIndex = 26
         '
         'Button7
         '
-        Me.Button7.Location = New System.Drawing.Point(12, 315)
+        Me.Button7.Location = New System.Drawing.Point(12, 286)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(86, 42)
         Me.Button7.TabIndex = 27
@@ -299,18 +304,69 @@ Partial Class Form1
         '
         'Button8
         '
-        Me.Button8.Location = New System.Drawing.Point(15, 378)
+        Me.Button8.Location = New System.Drawing.Point(12, 334)
         Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(83, 37)
+        Me.Button8.Size = New System.Drawing.Size(86, 37)
         Me.Button8.TabIndex = 28
         Me.Button8.Text = "Log version count"
         Me.Button8.UseVisualStyleBackColor = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(561, 195)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(100, 13)
+        Me.Label9.TabIndex = 30
+        Me.Label9.Text = "FS Service Time"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(139, 431)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(95, 13)
+        Me.Label10.TabIndex = 31
+        Me.Label10.Text = "Total Data Size"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(121, 453)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(113, 13)
+        Me.Label11.TabIndex = 32
+        Me.Label11.Text = "Average Data Size"
+        '
+        'TextBox10
+        '
+        Me.TextBox10.Location = New System.Drawing.Point(243, 424)
+        Me.TextBox10.Name = "TextBox10"
+        Me.TextBox10.Size = New System.Drawing.Size(120, 20)
+        Me.TextBox10.TabIndex = 33
+        '
+        'Button9
+        '
+        Me.Button9.Location = New System.Drawing.Point(12, 378)
+        Me.Button9.Name = "Button9"
+        Me.Button9.Size = New System.Drawing.Size(86, 37)
+        Me.Button9.TabIndex = 34
+        Me.Button9.Text = "New OS details"
+        Me.Button9.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1472, 812)
+        Me.Controls.Add(Me.Button9)
+        Me.Controls.Add(Me.TextBox10)
+        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.Label10)
+        Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Button8)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.TextBox9)
@@ -380,4 +436,9 @@ Partial Class Form1
     Friend WithEvents TextBox9 As TextBox
     Friend WithEvents Button7 As Button
     Friend WithEvents Button8 As Button
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label10 As Label
+    Friend WithEvents Label11 As Label
+    Friend WithEvents TextBox10 As TextBox
+    Friend WithEvents Button9 As Button
 End Class
