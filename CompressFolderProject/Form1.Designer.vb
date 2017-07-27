@@ -27,13 +27,11 @@ Partial Class Form1
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Button5 = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.FileName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -60,6 +58,11 @@ Partial Class Form1
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TextBox10 = New System.Windows.Forms.TextBox()
         Me.Button9 = New System.Windows.Forms.Button()
+        Me.Button10 = New System.Windows.Forms.Button()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -96,18 +99,9 @@ Partial Class Form1
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Destination Folder"
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(266, 113)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(79, 23)
-        Me.Button1.TabIndex = 4
-        Me.Button1.Text = "Zip"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(266, 714)
+        Me.Button2.Location = New System.Drawing.Point(669, 594)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(79, 23)
         Me.Button2.TabIndex = 5
@@ -116,7 +110,7 @@ Partial Class Form1
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(136, 113)
+        Me.Button3.Location = New System.Drawing.Point(136, 104)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(93, 23)
         Me.Button3.TabIndex = 6
@@ -125,7 +119,7 @@ Partial Class Form1
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(397, 113)
+        Me.Button4.Location = New System.Drawing.Point(243, 104)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(78, 23)
         Me.Button4.TabIndex = 7
@@ -141,15 +135,6 @@ Partial Class Form1
         Me.Label3.Size = New System.Drawing.Size(136, 16)
         Me.Label3.TabIndex = 9
         Me.Label3.Text = "Content of Zip files"
-        '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(12, 188)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(86, 41)
-        Me.Button5.TabIndex = 10
-        Me.Button5.Text = "Select Folder to Read"
-        Me.Button5.UseVisualStyleBackColor = True
         '
         'Label4
         '
@@ -231,7 +216,7 @@ Partial Class Form1
         '
         'TextBox6
         '
-        Me.TextBox6.Location = New System.Drawing.Point(172, 557)
+        Me.TextBox6.Location = New System.Drawing.Point(170, 531)
         Me.TextBox6.Name = "TextBox6"
         Me.TextBox6.Size = New System.Drawing.Size(286, 20)
         Me.TextBox6.TabIndex = 19
@@ -239,7 +224,7 @@ Partial Class Form1
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(8, 564)
+        Me.Label5.Location = New System.Drawing.Point(8, 531)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(140, 13)
         Me.Label5.TabIndex = 20
@@ -357,11 +342,48 @@ Partial Class Form1
         Me.Button9.Text = "New OS details"
         Me.Button9.UseVisualStyleBackColor = True
         '
+        'Button10
+        '
+        Me.Button10.Location = New System.Drawing.Point(11, 578)
+        Me.Button10.Name = "Button10"
+        Me.Button10.Size = New System.Drawing.Size(87, 39)
+        Me.Button10.TabIndex = 35
+        Me.Button10.Text = "Export to Excel"
+        Me.Button10.UseVisualStyleBackColor = True
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(397, 422)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(110, 13)
+        Me.Label12.TabIndex = 36
+        Me.Label12.Text = "Avg Prog installed"
+        '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        '
+        'Timer1
+        '
+        Me.Timer1.Interval = 20
+        '
+        'ProgressBar1
+        '
+        Me.ProgressBar1.Location = New System.Drawing.Point(369, 104)
+        Me.ProgressBar1.Name = "ProgressBar1"
+        Me.ProgressBar1.Size = New System.Drawing.Size(184, 23)
+        Me.ProgressBar1.TabIndex = 37
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1472, 812)
+        Me.ClientSize = New System.Drawing.Size(786, 629)
+        Me.Controls.Add(Me.ProgressBar1)
+        Me.Controls.Add(Me.Label12)
+        Me.Controls.Add(Me.Button10)
         Me.Controls.Add(Me.Button9)
         Me.Controls.Add(Me.TextBox10)
         Me.Controls.Add(Me.Label11)
@@ -384,19 +406,16 @@ Partial Class Form1
         Me.Controls.Add(Me.TextBox4)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.TextBox1)
         Me.Name = "Form1"
         Me.Text = "Form1"
-        Me.TopMost = True
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -408,13 +427,11 @@ Partial Class Form1
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents Button3 As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents Label3 As Label
-    Friend WithEvents Button5 As Button
     Friend WithEvents Label4 As Label
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents TextBox4 As TextBox
@@ -441,4 +458,9 @@ Partial Class Form1
     Friend WithEvents Label11 As Label
     Friend WithEvents TextBox10 As TextBox
     Friend WithEvents Button9 As Button
+    Friend WithEvents Button10 As Button
+    Friend WithEvents Label12 As Label
+    Friend WithEvents OpenFileDialog1 As OpenFileDialog
+    Friend WithEvents Timer1 As Timer
+    Friend WithEvents ProgressBar1 As ProgressBar
 End Class

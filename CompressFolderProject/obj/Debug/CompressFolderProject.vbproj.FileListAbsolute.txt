@@ -9,3 +9,4 @@ c:\users\owner\documents\visual studio 2015\Projects\CompressFolderProject\Compr
 c:\users\owner\documents\visual studio 2015\Projects\CompressFolderProject\CompressFolderProject\obj\Debug\CompressFolderProject.xml
 c:\users\owner\documents\visual studio 2015\Projects\CompressFolderProject\CompressFolderProject\obj\Debug\CompressFolderProject.pdb
 C:\Users\Owner\Documents\Visual Studio 2015\Projects\CompressFolderProject\CompressFolderProject\obj\Debug\CompressFolderProject.vbprojResolveAssemblyReference.cache
+C:\Users\Owner\Documents\Visual Studio 2015\Projects\CompressFolderProject\CompressFolderProject\obj\Debug\CompressFolderProject.vbproj.ResolveComReference.cache
